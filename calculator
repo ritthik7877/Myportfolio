@@ -1,0 +1,176 @@
+// calculator.html //
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Glass Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" readonly>
+
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">⌫</button>
+      <button class="operator" onclick="append('%')">%</button>
+      <button class="operator" onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button class="operator" onclick="append('*')">×</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button class="operator" onclick="append('-')">−</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button class="operator" onclick="append('+')">+</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+  //style.css//
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  width: 330px;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.calculator:hover {
+  box-shadow: 0 0 40px rgba(0, 255, 229, 0.6);
+  transform: scale(1.02);
+}
+
+#display {
+  width: 100%;
+  height: 65px;
+  border: none;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #c0e600;
+  font-size: 28px;
+  text-align: right;
+  padding-right: 15px;
+  margin-bottom: 20px;
+  outline: none;
+  box-shadow: inset 0 0 8px rgba(255, 0, 0, 0.2);
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+button {
+  height: 65px;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(60, 255, 0, 0.5);
+}
+
+.operator {
+  color: #ff9d00;
+  background: rgba(255, 165, 0, 0.15);
+}
+
+.equal {
+  grid-column: span 2;
+  background: linear-gradient(90deg, #00ffa6, #5eff00);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+}
+
+.equal:hover {
+  box-shadow: 0 0 35px rgba(0, 255, 200, 0.8);
+}
+
+.clear {
+  background: rgba(142, 255, 50, 0.3);
+  color: #fff3ba;
+}
+
+/* 📱 Responsive for mobile */
+@media (max-width: 400px) {
+  .calculator {
+    width: 90%;
+    padding: 20px;
+  }
+  button {
+    height: 55px;
+    font-size: 18px;
+  }
+  #display {
+    height: 55px;
+    font-size: 24px;
+  }
+}
+
+//script.js//
+
+let display = document.getElementById('display');
+
+function append(value) {
+  display.value += value;
+}
+
+function clearDisplay() {
+  display.value = '';
+}
+
+function deleteLast() {
+  display.value = display.value.slice(0, -1);
+}
+
+function calculate() {
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = 'Error';
+  }
+}
